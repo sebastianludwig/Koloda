@@ -60,6 +60,7 @@ public protocol KolodaViewDelegate:class {
     func kolodaShouldTransparentizeNextCard(koloda: KolodaView) -> Bool
     func kolodaBackgroundCardAnimation(koloda: KolodaView) -> POPPropertyAnimation?
     func kolodaDraggedCard(koloda: KolodaView, finishPercent: CGFloat, direction: SwipeResultDirection)
+    func kolodaDidResetCard(kolodaView: KolodaView)
 }
 
 public extension KolodaViewDelegate {
@@ -71,6 +72,7 @@ public extension KolodaViewDelegate {
     func kolodaShouldTransparentizeNextCard(koloda: KolodaView) -> Bool {return true}
     func kolodaBackgroundCardAnimation(koloda: KolodaView) -> POPPropertyAnimation? {return nil}
     func kolodaDraggedCard(koloda: KolodaView, finishPercent: CGFloat, direction: SwipeResultDirection) {}
+    func kolodaDidResetCard(kolodaView: KolodaView) {}
 }
 
 public class KolodaView: UIView, DraggableCardDelegate {
@@ -305,6 +307,7 @@ public class KolodaView: UIView, DraggableCardDelegate {
             animating = false
         }
         
+        delegate?.kolodaDidResetCard(self)
     }
     
     func cardTapped(card: DraggableCardView) {
